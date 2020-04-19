@@ -68,7 +68,7 @@ class GameSquare extends JPanel {
 }
 
 class Coordinate {
-    public int x, y;
+    private int x, y;
     public Coordinate(int i, int j) {
         x = j;
         y = i;
