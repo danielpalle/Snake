@@ -2,12 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameControl {
-    static Ruta[][] r = new Ruta[20][20];
+    static GameSquare[][] r = new GameSquare[20][20];
     static JFrame f = new JFrame();
     static JPanel upperborder = new JPanel();
     static JPanel gamearea = new JPanel();
     static JPanel lowerborder = new JPanel();
-
 
     public static void createGameWindow() {
         f.setPreferredSize(new Dimension(400, 600));
@@ -28,19 +27,18 @@ public class GameControl {
         gamearea.setLayout(new GridLayout(20,20));
 
         f.pack();
-        f.setLayout(null);
         f.setVisible(true);
     }
 
     public static void createGameGrid() {
         for (int i=0; i<r.length; i++) {
             for (int j = 0; j < r[i].length; j++) {
-                r[i][j] = new Ruta(i, j);
+                r[i][j] = new GameSquare(i, j);
                 gamearea.add(r[i][j]);
                 r[i][j].setBackground(Color.black);
             }
         }
-        r[0][0].setBackground(Color.yellow);
+        r[0][0].setBackground(Color.yellow); // Can be removed whenever.
         r[1][0].setBackground(Color.green);
         r[0][1].setBackground(Color.red);
         r[1][1].setBackground(Color.blue);
@@ -48,29 +46,38 @@ public class GameControl {
         f.setVisible(true);
     }
 
-    public static void MoveSnake() throws InterruptedException {
-        for (int i=0; i<20; i++) {
-            r[10][i].setBackground(Color.white);
+    public static void CreateSnake() {
+        Coordinate c1 = new Coordinate(10, 10);
+        Coordinate c2 = new Coordinate(10, 11);
+        Coordinate c3 = new Coordinate(10, 12);
 
-            if ((i-3)>=0  && i<=20) {
-                r[10][i-3].setBackground(Color.black);
-            }
-            Thread.sleep(200);
-            if (i==19)
-                i=-1;
-            f.setVisible(true);
-
-        }
+        r[c1.getX()][c1.getY()].setBackground(Color.white);
+        r[c2.getX()][c2.getY()].setBackground(Color.white);
+        r[c3.getX()][c3.getY()].setBackground(Color.white);
     }
 
 }
 
-class Ruta extends JPanel {
+class GameSquare extends JPanel {
     public int rad, kol;
-    public Ruta(int i, int j) {
+    public GameSquare(int i, int j) {
         rad = i;
         kol = j;
         setPreferredSize(new Dimension(20,20));
+    }
+}
+
+class Coordinate {
+    public int x, y;
+    public Coordinate(int i, int j) {
+        x = j;
+        y = i;
+    }
+    public Integer getX() {
+        return x;
+    }
+    public Integer getY() {
+        return y;
     }
 }
 
