@@ -4,6 +4,6 @@ public class Game {
         GameControl.createGameWindow();
         GameControl.createGameGrid();
         GameControl.CreateSnake();
-
+        //GameControl.MoveSnakeRight();
     }
 }

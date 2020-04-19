@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.LinkedList;
 
 public class GameControl {
     static GameSquare[][] r = new GameSquare[20][20];
@@ -7,6 +8,9 @@ public class GameControl {
     static JPanel upperborder = new JPanel();
     static JPanel gamearea = new JPanel();
     static JPanel lowerborder = new JPanel();
+    static LinkedList<Coordinate> queue = new LinkedList<Coordinate>();
+    static int headrow;
+    static int headcol;
 
     public static void createGameWindow() {
         f.setPreferredSize(new Dimension(400, 600));
@@ -46,14 +50,30 @@ public class GameControl {
         f.setVisible(true);
     }
 
-    public static void CreateSnake() {
-        Coordinate c1 = new Coordinate(10, 10);
-        Coordinate c2 = new Coordinate(10, 11);
-        Coordinate c3 = new Coordinate(10, 12);
+    public static void CreateSnake() throws InterruptedException {
+        headcol = 3;
+        headrow = 10;
+        for (int i=0; i<3; i++) {
+            queue.add(new Coordinate(headcol+i, headrow));
+            r[queue.get(i).getX()][queue.get(i).getY()].setBackground(Color.white);
+            Thread.sleep(500);
+        }
+    }
 
-        r[c1.getX()][c1.getY()].setBackground(Color.white);
-        r[c2.getX()][c2.getY()].setBackground(Color.white);
-        r[c3.getX()][c3.getY()].setBackground(Color.white);
+    public static void MoveSnakeRight() throws InterruptedException {
+        boolean MoveRight = true;
+        while (MoveRight) {
+            queue.addFirst(new Coordinate(headcol, headrow));
+            for (int i=0; i<queue.size(); i++) {
+                r[queue.get(i).getX()][queue.get(i).getY()].setBackground(Color.white);
+                System.out.println(queue.getLast().getX());
+                r[queue.getLast().getX()][queue.getLast().getY()].setBackground(Color.black);
+                Thread.sleep(500);
+                headcol++;
+            }
+            f.setVisible(true);
+        }
+
     }
 
 }
