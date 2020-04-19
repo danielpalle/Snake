@@ -59,10 +59,10 @@ public class GameControl {
 }
 
 class GameSquare extends JPanel {
-    public int rad, kol;
+    public int row, col;
     public GameSquare(int i, int j) {
-        rad = i;
-        kol = j;
+        row = i;
+        col = j;
         setPreferredSize(new Dimension(20,20));
     }
 }
