@@ -12,6 +12,7 @@ public class GameControl {
     public static void createGameWindow() {
         f.setPreferredSize(new Dimension(400, 600));
         f.setLayout(new BorderLayout());
+        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         upperborder.setPreferredSize(new Dimension(400, 100));
         upperborder.setBackground(Color.lightGray);
