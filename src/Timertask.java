@@ -1,13 +1,7 @@
-import java.util.Timer;
 import java.util.TimerTask;
 
-public class Game {
-    static Timer timer = new Timer();
-
-    public static void main(String[] args) {
-        GameControl.startGame();
-        MyTimer();
-    }
+public class Timertask {
+    static java.util.Timer timer = new java.util.Timer();
 
     public static void MyTimer() {
         TimerTask task = new TimerTask() {

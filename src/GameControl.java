@@ -1,7 +1,6 @@
-import java.util.*;
-import java.awt.*;
 import javax.swing.*;
-
+import java.awt.*;
+import java.util.LinkedList;
 
 public class GameControl {
     static GameSquare[][] square = new GameSquare[20][20];
@@ -59,7 +58,6 @@ public class GameControl {
         for (int i=0; i<3; i++) {
             queue.add(new Coordinate(snakeheadcol +i, snakeheadrow));
             square[queue.get(i).getX()][queue.get(i).getY()].setBackground(Color.white);
-
         }
         snakeheadcol+=2;
     }
