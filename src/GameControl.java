@@ -51,12 +51,12 @@ public class GameControl {
     }
 
     public static void createSnake() throws InterruptedException {
-        snakeheadcol = 3;
+        snakeheadcol = 8;
         snakeheadrow = 10;
         for (int i=0; i<3; i++) {
             queue.add(new Coordinate(snakeheadcol +i, snakeheadrow));
             r[queue.get(i).getX()][queue.get(i).getY()].setBackground(Color.white);
-            Thread.sleep(500);
+            Thread.sleep(1);
         }
         snakeheadcol+=2;
     }
@@ -64,15 +64,37 @@ public class GameControl {
     public static void moveSnakeRight() throws InterruptedException {
         boolean MoveRight = true;
         while (MoveRight) {
-
             for (int i=0; i<queue.size(); i++) {
-                snakeheadcol++;
+                Thread.sleep(500);
+                if (snakeheadcol+1==20)
+                    snakeheadcol=0;
+                else
+                    snakeheadcol++;
                 queue.addLast(new Coordinate(snakeheadcol, snakeheadrow));
                 r[queue.getLast().getX()][queue.getLast().getY()].setBackground(Color.white);
-                System.out.println(queue.getFirst().getY());
                 r[queue.getFirst().getX()][queue.getFirst().getY()].setBackground(Color.black);
                 queue.removeFirst();
+
+
+            }
+
+            f.setVisible(true);
+        }
+    }
+
+    public static void moveSnakeDown() throws InterruptedException {
+        boolean MoveDown = true;
+        while (MoveDown) {
+            for (int i=0; i<queue.size(); i++) {
                 Thread.sleep(500);
+                if (snakeheadrow+1==20)
+                    snakeheadrow=0;
+                else
+                    snakeheadrow++;
+                queue.addLast(new Coordinate(snakeheadcol, snakeheadrow));
+                r[queue.getLast().getX()][queue.getLast().getY()].setBackground(Color.white);
+                r[queue.getFirst().getX()][queue.getFirst().getY()].setBackground(Color.black);
+                queue.removeFirst();
 
 
             }

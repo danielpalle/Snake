@@ -4,6 +4,7 @@ public class Game {
         GameControl.createGameWindow();
         GameControl.createGameGrid();
         GameControl.createSnake();
-        GameControl.moveSnakeRight();
+        //GameControl.moveSnakeRight();
+        GameControl.moveSnakeDown();
     }
 }
