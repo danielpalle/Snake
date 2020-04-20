@@ -42,11 +42,6 @@ public class GameControl {
                 r[i][j].setBackground(Color.black);
             }
         }
-        r[0][0].setBackground(Color.yellow); // Can be removed whenever.
-        r[1][0].setBackground(Color.green);
-        r[0][1].setBackground(Color.red);
-        r[1][1].setBackground(Color.blue);
-
         f.setVisible(true);
     }
 
