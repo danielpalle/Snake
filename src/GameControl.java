@@ -27,6 +27,10 @@ public class GameControl {
             moveSnakeRight();
         else if (movesnakedirection == "down")
             moveSnakeDown();
+        else if (movesnakedirection == "up")
+            moveSnakeUp();
+        else if (movesnakedirection == "left")
+            moveSnakeLeft();
     }
 
     public static void moveSnakeRight() {
@@ -41,11 +45,35 @@ public class GameControl {
         GUI.f.setVisible(true);
     }
 
+    public static void moveSnakeLeft() {
+        if (snakeheadcol-1==-1)
+            snakeheadcol=19;
+        else
+            snakeheadcol--;
+        queue.addLast(new Coordinate(snakeheadcol, snakeheadrow));
+        GUI.square[queue.getLast().getX()][queue.getLast().getY()].setBackground(Color.white);
+        GUI.square[queue.getFirst().getX()][queue.getFirst().getY()].setBackground(Color.black);
+        queue.removeFirst();
+        GUI.f.setVisible(true);
+    }
+
     public static void moveSnakeDown() {
         if (snakeheadrow+1==20)
             snakeheadrow=0;
         else
             snakeheadrow++;
+        queue.addLast(new Coordinate(snakeheadcol, snakeheadrow));
+        GUI.square[queue.getLast().getX()][queue.getLast().getY()].setBackground(Color.white);
+        GUI.square[queue.getFirst().getX()][queue.getFirst().getY()].setBackground(Color.black);
+        queue.removeFirst();
+        GUI.f.setVisible(true);
+    }
+
+    public static void moveSnakeUp() {
+        if (snakeheadrow-1==-1)
+            snakeheadrow=19;
+        else
+            snakeheadrow--;
         queue.addLast(new Coordinate(snakeheadcol, snakeheadrow));
         GUI.square[queue.getLast().getX()][queue.getLast().getY()].setBackground(Color.white);
         GUI.square[queue.getFirst().getX()][queue.getFirst().getY()].setBackground(Color.black);

@@ -30,16 +30,20 @@ public class GUI {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    System.out.println("Right key pressed");
+                    if (GameControl.movesnakedirection!="left")
+                    GameControl.movesnakedirection = "right";
                 }
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    System.out.println("Up key pressed");
+                    if (GameControl.movesnakedirection!="down")
+                    GameControl.movesnakedirection = "up";
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    System.out.println("Left key pressed");
+                    if (GameControl.movesnakedirection!="right")
+                    GameControl.movesnakedirection = "left";
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    System.out.println("Down key pressed");
+                    if (GameControl.movesnakedirection!="up")
+                    GameControl.movesnakedirection = "down";
                 }
             }
 
