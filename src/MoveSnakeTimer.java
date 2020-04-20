@@ -1,7 +1,7 @@
 public class MoveSnakeTimer {
     static java.util.Timer timer = new java.util.Timer();
 
-    public static void MyTimer() {
+    public static void startGame() {
         java.util.TimerTask task = new java.util.TimerTask() {
             @Override
             public void run() {
