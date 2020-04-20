@@ -3,7 +3,7 @@ public class Game {
     public static void main(String[] args) throws InterruptedException {
         GameControl.createGameWindow();
         GameControl.createGameGrid();
-        GameControl.CreateSnake();
-        //GameControl.MoveSnakeRight();
+        GameControl.createSnake();
+        GameControl.moveSnakeRight();
     }
 }
