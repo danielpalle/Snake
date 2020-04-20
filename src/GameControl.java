@@ -1,9 +1,10 @@
-import javax.swing.*;
+import java.util.*;
 import java.awt.*;
-import java.util.LinkedList;
+import javax.swing.*;
+
 
 public class GameControl {
-    static gamesquare[][] r = new gamesquare[20][20];
+    static GameSquare[][] square = new GameSquare[20][20];
     static JFrame f = new JFrame();
     static JPanel upperborder = new JPanel();
     static JPanel gamearea = new JPanel();
@@ -11,6 +12,13 @@ public class GameControl {
     static LinkedList<Coordinate> queue = new LinkedList<>();
     static int snakeheadrow;
     static int snakeheadcol;
+    public static String movesnakedirection = "right";
+
+    public static void startGame() {
+        GameControl.createGameWindow();
+        GameControl.createGameGrid();
+        GameControl.createSnake();
+    }
 
     public static void createGameWindow() {
         f.setPreferredSize(new Dimension(400, 600));
@@ -35,73 +43,62 @@ public class GameControl {
     }
 
     public static void createGameGrid() {
-        for (int i=0; i<r.length; i++) {
-            for (int j = 0; j < r[i].length; j++) {
-                r[i][j] = new gamesquare(i, j);
-                gamearea.add(r[i][j]);
-                r[i][j].setBackground(Color.black);
+        for (int i = 0; i< square.length; i++) {
+            for (int j = 0; j < square[i].length; j++) {
+                square[i][j] = new GameSquare(i, j);
+                gamearea.add(square[i][j]);
+                square[i][j].setBackground(Color.black);
             }
         }
         f.setVisible(true);
     }
 
-    public static void createSnake() throws InterruptedException {
+    public static void createSnake()  {
         snakeheadcol = 8;
         snakeheadrow = 10;
         for (int i=0; i<3; i++) {
             queue.add(new Coordinate(snakeheadcol +i, snakeheadrow));
-            r[queue.get(i).getX()][queue.get(i).getY()].setBackground(Color.white);
-            Thread.sleep(1);
+            square[queue.get(i).getX()][queue.get(i).getY()].setBackground(Color.white);
+
         }
         snakeheadcol+=2;
     }
 
-    public static void moveSnakeRight() throws InterruptedException {
-        boolean MoveRight = true;
-        while (MoveRight) {
-            for (int i=0; i<queue.size(); i++) {
-                Thread.sleep(500);
-                if (snakeheadcol+1==20)
-                    snakeheadcol=0;
-                else
-                    snakeheadcol++;
-                queue.addLast(new Coordinate(snakeheadcol, snakeheadrow));
-                r[queue.getLast().getX()][queue.getLast().getY()].setBackground(Color.white);
-                r[queue.getFirst().getX()][queue.getFirst().getY()].setBackground(Color.black);
-                queue.removeFirst();
-
-
-            }
-
-            f.setVisible(true);
-        }
+    public static void moveSnake() {
+        if (movesnakedirection == "right")
+            moveSnakeRight();
+        else if (movesnakedirection == "down")
+            moveSnakeDown();
     }
 
-    public static void moveSnakeDown() throws InterruptedException {
-        boolean MoveDown = true;
-        while (MoveDown) {
-            for (int i=0; i<queue.size(); i++) {
-                Thread.sleep(500);
-                if (snakeheadrow+1==20)
-                    snakeheadrow=0;
-                else
-                    snakeheadrow++;
-                queue.addLast(new Coordinate(snakeheadcol, snakeheadrow));
-                r[queue.getLast().getX()][queue.getLast().getY()].setBackground(Color.white);
-                r[queue.getFirst().getX()][queue.getFirst().getY()].setBackground(Color.black);
-                queue.removeFirst();
+    public static void moveSnakeRight() {
+        if (snakeheadcol+1==20)
+            snakeheadcol=0;
+        else
+            snakeheadcol++;
+        queue.addLast(new Coordinate(snakeheadcol, snakeheadrow));
+        square[queue.getLast().getX()][queue.getLast().getY()].setBackground(Color.white);
+        square[queue.getFirst().getX()][queue.getFirst().getY()].setBackground(Color.black);
+        queue.removeFirst();
+        f.setVisible(true);
+    }
 
-
-            }
-
-            f.setVisible(true);
-        }
+    public static void moveSnakeDown() {
+        if (snakeheadrow+1==20)
+            snakeheadrow=0;
+        else
+            snakeheadrow++;
+        queue.addLast(new Coordinate(snakeheadcol, snakeheadrow));
+        square[queue.getLast().getX()][queue.getLast().getY()].setBackground(Color.white);
+        square[queue.getFirst().getX()][queue.getFirst().getY()].setBackground(Color.black);
+        queue.removeFirst();
+        f.setVisible(true);
     }
 }
 
-class gamesquare extends JPanel {
+class GameSquare extends JPanel {
     public int row, col;
-    public gamesquare(int i, int j) {
+    public GameSquare(int i, int j) {
         row = i;
         col = j;
         setPreferredSize(new Dimension(20,20));
