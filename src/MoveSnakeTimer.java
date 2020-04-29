@@ -8,6 +8,6 @@ public class MoveSnakeTimer {
                 GameControl.moveSnake();
             }
         };
-        timer.schedule(task, 0, 250);
+        timer.schedule(task, 0, 300);
     }
 }
