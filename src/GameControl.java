@@ -4,7 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GameControl {
     static LinkedList<Coordinate> snakecoordinate = new LinkedList<>();
-    static Coordinate foodcoordinate = new Coordinate(3,13);
+    static Coordinate foodcoordinate = new Coordinate(3,3);
     static int snakeheadrow;
     static int snakeheadcol;
     static int snakeinitlength;
@@ -63,6 +63,7 @@ public class GameControl {
             }
         }
         checkIfFoodIsEaten();
+        checkForSnakeCollision();
     }
 
     public static void moveSnakeRight() {
@@ -118,7 +119,6 @@ public class GameControl {
     }
 
     public static void placeFood() {
-
         foodcoordinate.setY(ThreadLocalRandom.current().nextInt(0, 19 + 1));
         foodcoordinate.setX(ThreadLocalRandom.current().nextInt(0, 19 + 1));
         GUI.square[foodcoordinate.getX()][foodcoordinate.getY()].setBackground(Color.yellow);
@@ -128,7 +128,17 @@ public class GameControl {
         if (snakecoordinate.getLast().getX() == foodcoordinate.getX() && snakecoordinate.getLast().getY() == foodcoordinate.getY()) {
             extendSnake();
             placeFood();
+            MoveSnakeTimer.timerperiod -= 25;
         }
+    }
+
+    public static void checkForSnakeCollision() {
+        for (int i = 1; i<snakecoordinate.size(); i++)
+            if (snakecoordinate.getLast().getY() == snakecoordinate.get(0).getY() && snakecoordinate.getLast().getX() == snakecoordinate.get(0).getX()){
+                MoveSnakeTimer.timer.cancel();
+                GUI.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.red);
+            }
+
     }
 
 }
