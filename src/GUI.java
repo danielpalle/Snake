@@ -62,6 +62,7 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 GameControl.createSnake();
+                GameControl.placeFood();
                 MoveSnakeTimer.startGame();
                 lowerborder.add(steersnake);
                 upperborder.remove(presstostartbutton);

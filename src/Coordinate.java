@@ -10,4 +10,11 @@ class Coordinate {
     public Integer getY() {
         return y;
     }
+
+    public void setX(int n) {
+        this.x =n;
+    }
+    public void setY(int k) {
+        this.y = k;
+    }
 }
