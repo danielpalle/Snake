@@ -9,9 +9,14 @@ public class MoveSnakeTimer {
                 GameControl.moveSnake();
             }
         };
-        timer.schedule(task, 0, timerperiod);
+        timer.schedule(task, timerperiod, timerperiod);
     }
 
-    public static void setSchedule() {
+    public static void makeTimerFaster() {
+        timer.cancel();
+        if (timerperiod > 85)
+            timerperiod *= 0.9;
+        timer = new java.util.Timer();
+        startGame();
     }
 }

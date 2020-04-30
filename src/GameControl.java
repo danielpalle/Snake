@@ -128,12 +128,13 @@ public class GameControl {
         if (snakecoordinate.getLast().getX() == foodcoordinate.getX() && snakecoordinate.getLast().getY() == foodcoordinate.getY()) {
             extendSnake();
             placeFood();
-            MoveSnakeTimer.timerperiod -= 25;
+            MoveSnakeTimer.makeTimerFaster();
+
         }
     }
 
     public static void checkForSnakeCollision() {
-        for (int i = 1; i<snakecoordinate.size(); i++)
+        for (int i = 0; i<snakecoordinate.size(); i++)
             if (snakecoordinate.getLast().getY() == snakecoordinate.get(0).getY() && snakecoordinate.getLast().getX() == snakecoordinate.get(0).getX()){
                 MoveSnakeTimer.timer.cancel();
                 GUI.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.red);
