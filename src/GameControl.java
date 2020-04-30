@@ -14,11 +14,10 @@ public class GameControl {
     public static void buildGUI() {
         GUI.createGameWindow();
         GUI.createGameGrid();
-
     }
 
     public static void createSnake()  {
-        snakeheadcol = 8;
+        snakeheadcol = 10;
         snakeheadrow = 10;
         snakeinitlength = 3;
 
@@ -62,8 +61,7 @@ public class GameControl {
                 lastmoveddirection = "left";
             }
         }
-        checkIfFoodIsEaten();
-        checkForSnakeCollision();
+        makeSnakeFasterIfItEats();
     }
 
     public static void moveSnakeRight() {
@@ -71,11 +69,16 @@ public class GameControl {
             snakeheadcol=0;
         else
             snakeheadcol++;
-        snakecoordinate.addLast(new Coordinate(snakeheadcol, snakeheadrow));
-        GUI.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.white);
-        GUI.square[snakecoordinate.getFirst().getX()][snakecoordinate.getFirst().getY()].setBackground(Color.black);
-        snakecoordinate.removeFirst();
-        GUI.f.setVisible(true);
+        if (nextSquareHasFood()) {
+            extendSnake();
+        }
+        else {
+            snakecoordinate.addLast(new Coordinate(snakeheadcol, snakeheadrow));
+            GUI.square[snakecoordinate.getFirst().getX()][snakecoordinate.getFirst().getY()].setBackground(Color.black);
+            GUI.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.white);
+            snakecoordinate.removeFirst();
+            GUI.f.setVisible(true);
+        }
     }
 
     public static void moveSnakeLeft() {
@@ -83,11 +86,16 @@ public class GameControl {
             snakeheadcol=19;
         else
             snakeheadcol--;
-        snakecoordinate.addLast(new Coordinate(snakeheadcol, snakeheadrow));
-        GUI.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.white);
-        GUI.square[snakecoordinate.getFirst().getX()][snakecoordinate.getFirst().getY()].setBackground(Color.black);
-        snakecoordinate.removeFirst();
-        GUI.f.setVisible(true);
+        if (nextSquareHasFood()) {
+            extendSnake();
+        }
+        else {
+            snakecoordinate.addLast(new Coordinate(snakeheadcol, snakeheadrow));
+            GUI.square[snakecoordinate.getFirst().getX()][snakecoordinate.getFirst().getY()].setBackground(Color.black);
+            GUI.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.white);
+            snakecoordinate.removeFirst();
+            GUI.f.setVisible(true);
+        }
     }
 
     public static void moveSnakeDown() {
@@ -95,11 +103,16 @@ public class GameControl {
             snakeheadrow=0;
         else
             snakeheadrow++;
-        snakecoordinate.addLast(new Coordinate(snakeheadcol, snakeheadrow));
-        GUI.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.white);
-        GUI.square[snakecoordinate.getFirst().getX()][snakecoordinate.getFirst().getY()].setBackground(Color.black);
-        snakecoordinate.removeFirst();
-        GUI.f.setVisible(true);
+        if (nextSquareHasFood()) {
+            extendSnake();
+        }
+        else {
+            snakecoordinate.addLast(new Coordinate(snakeheadcol, snakeheadrow));
+            GUI.square[snakecoordinate.getFirst().getX()][snakecoordinate.getFirst().getY()].setBackground(Color.black);
+            GUI.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.white);
+            snakecoordinate.removeFirst();
+            GUI.f.setVisible(true);
+        }
     }
 
     public static void moveSnakeUp() {
@@ -107,15 +120,22 @@ public class GameControl {
             snakeheadrow=19;
         else
             snakeheadrow--;
-        snakecoordinate.addLast(new Coordinate(snakeheadcol, snakeheadrow));
-        GUI.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.white);
-        GUI.square[snakecoordinate.getFirst().getX()][snakecoordinate.getFirst().getY()].setBackground(Color.black);
-        snakecoordinate.removeFirst();
-        GUI.f.setVisible(true);
+        if (nextSquareHasFood()) {
+            extendSnake();
+        }
+        else {
+            snakecoordinate.addLast(new Coordinate(snakeheadcol, snakeheadrow));
+            GUI.square[snakecoordinate.getFirst().getX()][snakecoordinate.getFirst().getY()].setBackground(Color.black);
+            GUI.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.white);
+            snakecoordinate.removeFirst();
+            GUI.f.setVisible(true);
+        }
     }
 
     public static void extendSnake() {
         GameControl.snakecoordinate.addLast(new Coordinate(GameControl.snakeheadcol, GameControl.snakeheadrow));
+        GUI.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.white);
+        GUI.f.setVisible(true);
     }
 
     public static void placeFood() {
@@ -124,9 +144,8 @@ public class GameControl {
         GUI.square[foodcoordinate.getX()][foodcoordinate.getY()].setBackground(Color.yellow);
     }
 
-    public static void checkIfFoodIsEaten() {
-        if (snakecoordinate.getLast().getX() == foodcoordinate.getX() && snakecoordinate.getLast().getY() == foodcoordinate.getY()) {
-            extendSnake();
+    public static void makeSnakeFasterIfItEats() {
+        if (nextSquareHasFood()) {
             placeFood();
             MoveSnakeTimer.makeTimerFaster();
 
@@ -134,12 +153,20 @@ public class GameControl {
     }
 
     public static void checkForSnakeCollision() {
-        for (int i = 0; i<snakecoordinate.size(); i++)
-            if (snakecoordinate.getLast().getY() == snakecoordinate.get(0).getY() && snakecoordinate.getLast().getX() == snakecoordinate.get(0).getX()){
+        for (int i = 0; i<snakecoordinate.size()-1; i++)
+            if (snakecoordinate.getLast().getY() == snakecoordinate.get(i).getY() && snakecoordinate.getLast().getX() == snakecoordinate.get(i).getX()){
                 MoveSnakeTimer.timer.cancel();
                 GUI.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.red);
             }
 
+    }
+
+    public static boolean nextSquareHasFood() {
+        if (snakeheadrow == foodcoordinate.getX() && snakeheadcol == foodcoordinate.getY()) {
+            System.out.println("food!");
+            return true;
+        }
+        else return false;
     }
 
 }

@@ -7,6 +7,7 @@ public class MoveSnakeTimer {
             @Override
             public void run() {
                 GameControl.moveSnake();
+                GameControl.checkForSnakeCollision();
             }
         };
         timer.schedule(task, timerperiod, timerperiod);
@@ -14,7 +15,7 @@ public class MoveSnakeTimer {
 
     public static void makeTimerFaster() {
         timer.cancel();
-        if (timerperiod > 85)
+        if (timerperiod > 100)
             timerperiod *= 0.9;
         timer = new java.util.Timer();
         startGame();
