@@ -2,7 +2,7 @@ import java.awt.*;
 import java.util.LinkedList;
 
 public class GameControl {
-    static LinkedList<Coordinate> queue = new LinkedList<>();
+    static LinkedList<Coordinate> snakecoordinate = new LinkedList<>();
     static int snakeheadrow;
     static int snakeheadcol;
     static int snakeinitlength;
@@ -17,11 +17,11 @@ public class GameControl {
     public static void createSnake()  {
         snakeheadcol = 8;
         snakeheadrow = 10;
-        snakeinitlength = 7;
+        snakeinitlength = 3;
 
         for (int i=0; i<snakeinitlength; i++) {
-            queue.add(new Coordinate(snakeheadcol +i, snakeheadrow));
-            GUI.square[queue.get(i).getX()][queue.get(i).getY()].setBackground(Color.white);
+            snakecoordinate.add(new Coordinate(snakeheadcol +i, snakeheadrow));
+            GUI.square[snakecoordinate.get(i).getX()][snakecoordinate.get(i).getY()].setBackground(Color.white);
         }
         snakeheadcol+=(snakeinitlength-1);
     }
@@ -41,6 +41,8 @@ public class GameControl {
             else {
                 moveSnakeDown();
                 lastmoveddirection = "down";
+                extendSnake();
+
             }
         }
         else if (movesnakedirection == "up") {
@@ -66,10 +68,10 @@ public class GameControl {
             snakeheadcol=0;
         else
             snakeheadcol++;
-        queue.addLast(new Coordinate(snakeheadcol, snakeheadrow));
-        GUI.square[queue.getLast().getX()][queue.getLast().getY()].setBackground(Color.white);
-        GUI.square[queue.getFirst().getX()][queue.getFirst().getY()].setBackground(Color.black);
-        queue.removeFirst();
+        snakecoordinate.addLast(new Coordinate(snakeheadcol, snakeheadrow));
+        GUI.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.white);
+        GUI.square[snakecoordinate.getFirst().getX()][snakecoordinate.getFirst().getY()].setBackground(Color.black);
+        snakecoordinate.removeFirst();
         GUI.f.setVisible(true);
     }
 
@@ -78,10 +80,10 @@ public class GameControl {
             snakeheadcol=19;
         else
             snakeheadcol--;
-        queue.addLast(new Coordinate(snakeheadcol, snakeheadrow));
-        GUI.square[queue.getLast().getX()][queue.getLast().getY()].setBackground(Color.white);
-        GUI.square[queue.getFirst().getX()][queue.getFirst().getY()].setBackground(Color.black);
-        queue.removeFirst();
+        snakecoordinate.addLast(new Coordinate(snakeheadcol, snakeheadrow));
+        GUI.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.white);
+        GUI.square[snakecoordinate.getFirst().getX()][snakecoordinate.getFirst().getY()].setBackground(Color.black);
+        snakecoordinate.removeFirst();
         GUI.f.setVisible(true);
     }
 
@@ -90,10 +92,10 @@ public class GameControl {
             snakeheadrow=0;
         else
             snakeheadrow++;
-        queue.addLast(new Coordinate(snakeheadcol, snakeheadrow));
-        GUI.square[queue.getLast().getX()][queue.getLast().getY()].setBackground(Color.white);
-        GUI.square[queue.getFirst().getX()][queue.getFirst().getY()].setBackground(Color.black);
-        queue.removeFirst();
+        snakecoordinate.addLast(new Coordinate(snakeheadcol, snakeheadrow));
+        GUI.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.white);
+        GUI.square[snakecoordinate.getFirst().getX()][snakecoordinate.getFirst().getY()].setBackground(Color.black);
+        snakecoordinate.removeFirst();
         GUI.f.setVisible(true);
     }
 
@@ -102,11 +104,15 @@ public class GameControl {
             snakeheadrow=19;
         else
             snakeheadrow--;
-        queue.addLast(new Coordinate(snakeheadcol, snakeheadrow));
-        GUI.square[queue.getLast().getX()][queue.getLast().getY()].setBackground(Color.white);
-        GUI.square[queue.getFirst().getX()][queue.getFirst().getY()].setBackground(Color.black);
-        queue.removeFirst();
+        snakecoordinate.addLast(new Coordinate(snakeheadcol, snakeheadrow));
+        GUI.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.white);
+        GUI.square[snakecoordinate.getFirst().getX()][snakecoordinate.getFirst().getY()].setBackground(Color.black);
+        snakecoordinate.removeFirst();
         GUI.f.setVisible(true);
+    }
+
+    public static void extendSnake() {
+        GameControl.snakecoordinate.addLast(new Coordinate(GameControl.snakeheadcol, GameControl.snakeheadrow));
     }
 }
 
