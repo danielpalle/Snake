@@ -13,7 +13,7 @@ public class GUI {
     static JPanel gamearea = new JPanel();
     static JPanel lowerborder = new JPanel();
     static JButton presstostartbutton = new JButton("Press to start");
-    static JLabel steersnake = new JLabel("Steer snake with arrowkeys");
+    static JLabel steersnake = new JLabel("Steer snake with arrow keys");
 
     public static void createGameWindow() {
         f.setPreferredSize(new Dimension(400, 500));

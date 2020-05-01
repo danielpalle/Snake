@@ -61,7 +61,6 @@ public class GameControl {
                 lastmoveddirection = "left";
             }
         }
-        makeSnakeFasterIfItEats();
     }
 
     public static void moveSnakeRight() {
@@ -139,6 +138,12 @@ public class GameControl {
     }
 
     public static void placeFood() {
+        // TODO add check to make sure food is not placed on snake //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        for (int i = 0; i<snakecoordinate.size()-1; i++)
+            if (snakecoordinate.getLast().getY() == snakecoordinate.get(i).getY() && snakecoordinate.getLast().getX() == snakecoordinate.get(i).getX()){
+                MoveSnakeTimer.timer.cancel();
+                GUI.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.red);
+            }
         foodcoordinate.setY(ThreadLocalRandom.current().nextInt(0, 19 + 1));
         foodcoordinate.setX(ThreadLocalRandom.current().nextInt(0, 19 + 1));
         GUI.square[foodcoordinate.getX()][foodcoordinate.getY()].setBackground(Color.yellow);
@@ -148,7 +153,6 @@ public class GameControl {
         if (nextSquareHasFood()) {
             placeFood();
             MoveSnakeTimer.makeTimerFaster();
-
         }
     }
 
@@ -158,7 +162,6 @@ public class GameControl {
                 MoveSnakeTimer.timer.cancel();
                 GUI.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.red);
             }
-
     }
 
     public static boolean nextSquareHasFood() {
@@ -168,7 +171,6 @@ public class GameControl {
         }
         else return false;
     }
-
 }
 
 

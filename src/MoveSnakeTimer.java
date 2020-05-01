@@ -1,6 +1,6 @@
 public class MoveSnakeTimer {
     static java.util.Timer timer = new java.util.Timer();
-    public static int timerperiod = 300;
+    static int timerperiod = 300;
 
     public static void startGame() {
         java.util.TimerTask task = new java.util.TimerTask() {
@@ -8,6 +8,7 @@ public class MoveSnakeTimer {
             public void run() {
                 GameControl.moveSnake();
                 GameControl.checkForSnakeCollision();
+                GameControl.makeSnakeFasterIfItEats();
             }
         };
         timer.schedule(task, timerperiod, timerperiod);
