@@ -1,2 +1,2 @@
 # Snake
-The classic game Snake, for learning purposes
+The classic game Snake written in Java
