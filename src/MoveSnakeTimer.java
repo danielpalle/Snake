@@ -7,7 +7,7 @@ public class MoveSnakeTimer {
         gamecontrol1 = k;
     }
 
-    public void startGame() {
+    public void taskMoveSnake() {
         java.util.TimerTask task = new java.util.TimerTask() {
             @Override
             public void run() {
@@ -24,6 +24,6 @@ public class MoveSnakeTimer {
         if (timerperiod > 100)
             timerperiod *= 0.9;
         timer = new java.util.Timer();
-        startGame();
+        taskMoveSnake();
     }
 }

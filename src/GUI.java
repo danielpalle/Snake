@@ -87,6 +87,8 @@ public class GUI {
         f.pack();
         f.setVisible(true);
         f.setLocation(dim.width/2-f.getSize().width/2, dim.height/2-f.getSize().height/2);
+
+        createGameGrid();
     }
 
     public void createGameGrid() {

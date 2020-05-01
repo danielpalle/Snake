@@ -13,19 +13,14 @@ public class GameControl {
     GUI gui1;
     MoveSnakeTimer movesnaketimer1;
 
-    public GameControl() {
-        movesnaketimer1 = new MoveSnakeTimer(this);
-        gui1 = new GUI(this);
-        buildGUI();
-    }
-
     public void startGame() {
-        movesnaketimer1.startGame();
+        movesnaketimer1 = new MoveSnakeTimer(this);
+        movesnaketimer1.taskMoveSnake();
     }
 
     public void buildGUI () {
+        gui1 = new GUI(this);
         gui1.createGameWindow();
-        gui1.createGameGrid();
     }
 
     public void createSnake () {
@@ -79,7 +74,8 @@ public class GameControl {
             snakeheadcol++;
         if (nextSquareHasFood()) {
             extendSnake();
-        } else {
+        }
+        else {
             snakecoordinate.addLast(new Coordinate(snakeheadcol, snakeheadrow));
             gui1.square[snakecoordinate.getFirst().getX()][snakecoordinate.getFirst().getY()].setBackground(Color.black);
             gui1.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.white);
@@ -95,7 +91,8 @@ public class GameControl {
             snakeheadcol--;
         if (nextSquareHasFood()) {
             extendSnake();
-        } else {
+        }
+        else {
             snakecoordinate.addLast(new Coordinate(snakeheadcol, snakeheadrow));
             gui1.square[snakecoordinate.getFirst().getX()][snakecoordinate.getFirst().getY()].setBackground(Color.black);
             gui1.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.white);
@@ -111,7 +108,8 @@ public class GameControl {
             snakeheadrow++;
         if (nextSquareHasFood()) {
             extendSnake();
-        } else {
+        }
+        else {
             snakecoordinate.addLast(new Coordinate(snakeheadcol, snakeheadrow));
             gui1.square[snakecoordinate.getFirst().getX()][snakecoordinate.getFirst().getY()].setBackground(Color.black);
             gui1.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.white);
@@ -127,7 +125,8 @@ public class GameControl {
             snakeheadrow--;
         if (nextSquareHasFood()) {
             extendSnake();
-        } else {
+        }
+        else {
             snakecoordinate.addLast(new Coordinate(snakeheadcol, snakeheadrow));
             gui1.square[snakecoordinate.getFirst().getX()][snakecoordinate.getFirst().getY()].setBackground(Color.black);
             gui1.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.white);
@@ -179,7 +178,6 @@ public class GameControl {
 
     public boolean nextSquareHasFood () {
         if (snakeheadrow == foodcoordinate.getX() && snakeheadcol == foodcoordinate.getY()) {
-            System.out.println("food!");
             return true;
         } else return false;
     }
