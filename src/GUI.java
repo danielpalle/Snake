@@ -6,16 +6,21 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GUI {
-    static Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-    static GameSquare[][] square = new GameSquare[20][20];
-    static JFrame f = new JFrame();
-    static JPanel upperborder = new JPanel();
-    static JPanel gamearea = new JPanel();
-    static JPanel lowerborder = new JPanel();
-    static JButton presstostartbutton = new JButton("Press to start");
-    static JLabel steersnake = new JLabel("Steer snake with arrow keys");
+    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+    GameSquare[][] square = new GameSquare[20][20];
+    JFrame f = new JFrame();
+    JPanel upperborder = new JPanel();
+    JPanel gamearea = new JPanel();
+    JPanel lowerborder = new JPanel();
+    JButton presstostartbutton = new JButton("Press to start");
+    JLabel steersnake = new JLabel("Steer snake with arrow keys");
+    GameControl gamecontrol1;
 
-    public static void createGameWindow() {
+    public GUI(GameControl k){
+        gamecontrol1 = k;
+    }
+
+    public void createGameWindow() {
         f.setPreferredSize(new Dimension(400, 500));
         f.setLayout(new BorderLayout());
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -30,20 +35,20 @@ public class GUI {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    if (GameControl.movesnakedirection!="left")
-                    GameControl.movesnakedirection = "right";
+                    if (gamecontrol1.getMoveSnakeDirection() != "left")
+                        gamecontrol1.setMoveSnakeDirection("right");
                 }
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    if (GameControl.movesnakedirection!="down")
-                    GameControl.movesnakedirection = "up";
+                    if (gamecontrol1.getMoveSnakeDirection() != "down")
+                        gamecontrol1.setMoveSnakeDirection("up");
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    if (GameControl.movesnakedirection!="right")
-                    GameControl.movesnakedirection = "left";
+                    if (gamecontrol1.getMoveSnakeDirection() != "right")
+                        gamecontrol1.setMoveSnakeDirection("left");
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    if (GameControl.movesnakedirection!="up")
-                    GameControl.movesnakedirection = "down";
+                    if (gamecontrol1.getMoveSnakeDirection() != "up")
+                        gamecontrol1.setMoveSnakeDirection("down");
                 }
             }
 
@@ -61,9 +66,9 @@ public class GUI {
         presstostartbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GameControl.createSnake();
-                GameControl.placeFood();
-                MoveSnakeTimer.startGame();
+                gamecontrol1.createSnake();
+                gamecontrol1.placeFood();
+                gamecontrol1.startGame();
                 lowerborder.add(steersnake);
                 upperborder.remove(presstostartbutton);
                 upperborder.repaint();
@@ -84,14 +89,14 @@ public class GUI {
         f.setLocation(dim.width/2-f.getSize().width/2, dim.height/2-f.getSize().height/2);
     }
 
-    public static void createGameGrid() {
-        for (int i = 0; i< GUI.square.length; i++) {
-            for (int j = 0; j < GUI.square[i].length; j++) {
-                GUI.square[i][j] = new GameSquare(i, j);
-                GUI.gamearea.add(GUI.square[i][j]);
-                GUI.square[i][j].setBackground(Color.black);
+    public void createGameGrid() {
+        for (int i = 0; i< square.length; i++) {
+            for (int j = 0; j < square[i].length; j++) {
+                square[i][j] = new GameSquare(i, j);
+                gamearea.add(square[i][j]);
+                square[i][j].setBackground(Color.black);
             }
         }
-        GUI.f.setVisible(true);
+        f.setVisible(true);
     }
 }

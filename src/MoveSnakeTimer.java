@@ -1,20 +1,25 @@
 public class MoveSnakeTimer {
-    static java.util.Timer timer = new java.util.Timer();
-    static int timerperiod = 300;
+    java.util.Timer timer = new java.util.Timer();
+    int timerperiod = 300;
+    GameControl gamecontrol1;
 
-    public static void startGame() {
+    public MoveSnakeTimer(GameControl k) {
+        gamecontrol1 = k;
+    }
+
+    public void startGame() {
         java.util.TimerTask task = new java.util.TimerTask() {
             @Override
             public void run() {
-                GameControl.moveSnake();
-                GameControl.checkForSnakeCollision();
-                GameControl.makeSnakeFasterIfItEats();
+                gamecontrol1.moveSnake();
+                gamecontrol1.checkForSnakeCollision();
+                gamecontrol1.makeSnakeFasterIfItEats();
             }
         };
         timer.schedule(task, timerperiod, timerperiod);
     }
 
-    public static void makeTimerFaster() {
+    public void makeTimerFaster() {
         timer.cancel();
         if (timerperiod > 100)
             timerperiod *= 0.9;

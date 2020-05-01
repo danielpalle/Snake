@@ -1,5 +1,5 @@
 public class SnakeGameMain {
     public static void main(String[] args) {
-        GameControl.buildGUI();
+        GameControl gamecontrol1 = new GameControl();
     }
 }
