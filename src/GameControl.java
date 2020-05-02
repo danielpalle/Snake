@@ -26,7 +26,7 @@ public class GameControl {
     public void createSnake () {
         snakeheadcol = 3;
         snakeheadrow = 10;
-        snakeinitlength = 3;
+        snakeinitlength = 15;
 
         for (int i = 0; i < snakeinitlength; i++) {
             snakecoordinate.add(new Coordinate(snakeheadcol + i, snakeheadrow));
@@ -150,14 +150,13 @@ public class GameControl {
     }
 
     public void placeFood () {
-        // TODO add check to make sure food is not placed on snake //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        for (int i = 0; i < snakecoordinate.size() - 1; i++)
-            if (snakecoordinate.getLast().getY() == snakecoordinate.get(i).getY() && snakecoordinate.getLast().getX() == snakecoordinate.get(i).getX()) {
-                movesnaketimer1.timer.cancel();
-                gui1.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.red);
-            }
         foodcoordinate.setY(ThreadLocalRandom.current().nextInt(0, 19 + 1));
         foodcoordinate.setX(ThreadLocalRandom.current().nextInt(0, 19 + 1));
+
+        while (foodIsPlacedOnSnake()) {
+            foodcoordinate.setY(ThreadLocalRandom.current().nextInt(0, 19 + 1));
+            foodcoordinate.setX(ThreadLocalRandom.current().nextInt(0, 19 + 1));
+        }
         gui1.square[foodcoordinate.getX()][foodcoordinate.getY()].setBackground(Color.yellow);
     }
 
@@ -174,6 +173,18 @@ public class GameControl {
                 movesnaketimer1.timer.cancel();
                 gui1.square[snakecoordinate.getLast().getX()][snakecoordinate.getLast().getY()].setBackground(Color.red);
             }
+    }
+
+    public boolean foodIsPlacedOnSnake(){
+        String resultat = "false";
+        for (int i = 0; i < snakecoordinate.size() - 1; i++)
+            if (foodcoordinate.getY() == snakecoordinate.get(i).getY() && foodcoordinate.getX()  == snakecoordinate.get(i).getX()) {
+                resultat = "true";
+            }
+        if (resultat == "true")
+            return true;
+        else
+            return false;
     }
 
     public boolean nextSquareHasFood () {
