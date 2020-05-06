@@ -7,7 +7,7 @@ import java.awt.event.KeyListener;
 
 public class GUI {
     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-    GameSquare[][] square = new GameSquare[20][20];
+    Square[][] square = new Square[20][20];
     JFrame f = new JFrame();
     JPanel upperborder = new JPanel();
     JPanel gamearea = new JPanel();
@@ -94,7 +94,7 @@ public class GUI {
     public void createGameGrid() {
         for (int i = 0; i< square.length; i++) {
             for (int j = 0; j < square[i].length; j++) {
-                square[i][j] = new GameSquare(i, j);
+                square[i][j] = new Square(i, j);
                 gamearea.add(square[i][j]);
                 square[i][j].setBackground(Color.black);
             }

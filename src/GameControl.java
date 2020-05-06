@@ -24,9 +24,9 @@ public class GameControl {
     }
 
     public void createSnake () {
-        snakeheadcol = 3;
+        snakeheadcol = 8;
         snakeheadrow = 10;
-        snakeinitlength = 15;
+        snakeinitlength = 3;
 
         for (int i = 0; i < snakeinitlength; i++) {
             snakecoordinate.add(new Coordinate(snakeheadcol + i, snakeheadrow));
